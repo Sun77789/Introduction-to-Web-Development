@@ -99,6 +99,10 @@ end
 </li>
 
 <li>
+  <h4>Adding Views</h4>
+</li>
+
+<li>
 5. Create an index view and add to app/views/products/index.html.erb::
 <code>
   <div class="container">
@@ -124,3 +128,145 @@ end
 <div id="product-modal" class="modal fade"></div>
 </code>
 </li>
+
+<li>
+6. Create _index.html.erb partial with code:
+<code>
+  <% @products.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= number_to_currency product.price %></td>
+      <td><%= link_to "Edit", edit_product_path(product), remote: true, class: "btn btn-default" %></td>
+      <td><%= link_to "Delete", product_delete_path(product), remote: true, class: "btn btn-danger" %></td>
+    </tr>
+  <% end %>
+</code>
+</li>
+
+<li>
+6. Create a _form.html.erb partial.
+<code>
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <%= form_for @product, remote: true, html: { style: "display:inline;" } do |f| %>
+      <div class="modal-body">
+        <ul class="errors"></ul>
+
+        <div class="form-group">
+          <%= f.label :name, class:"control-label" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :price, class: "control-label" %>
+          <%= f.text_field :price, class: "form-control" %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= f.submit class: "btn btn-primary" %>
+        <%= link_to "Cancel", "#", class: "btn", data: {dismiss: "modal"} %>
+      </div>
+    <% end %>
+  </div>
+</div>
+</code>
+</li>
+
+<li>
+7.  Create a _new.html.rb file
+<code>
+  <div class="modal-header">
+  <h3>New Product</h3>
+  </div>
+  <%= render "form" %>
+</code>
+</li>
+
+<li>
+8. Create an _edit.html.rb file for products 
+<code>
+  <div class="modal-header">
+  <h3><%= "Editing #{@product.name}" %></h3>
+  </div>
+  <%= render "form" %>
+</code>
+</li>
+
+
+<li>
+  <h4>Javascript files</h4>
+</li>
+
+<li>
+9. Create the new.js.erb view inside app/views/products folder.
+<code>
+  $("#product-modal").html("<%= escape_javascript(render 'new') %>")
+  $("#product-modal").modal("show")
+</code>
+</li>
+
+<li>
+10. Create the edit.js.erb view 
+<code>
+  $("#product-modal").html("<%= escape_javascript(render 'edit') %>")
+  $("#product-modal").modal("show")
+</code>
+</li>
+
+<li>
+11. Create a partial that will be shared between the create, update, and destroy js files. This file will determine if the product was successfully saved. 
+<code>
+$("ul.errors").html("")
+<% if @product.errors.any? %>
+  <% @product.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+  <% end %>
+<% else %>
+  $(".product-index").html("<%= escape_javascript(render 'index') %>")
+  $("#product-modal").modal("hide")
+<% end %>
+</code>
+</li>
+
+<li>
+12. Create update.js.erb, destroy.js.erb and create.js.erb views, all with the following code: 
+<code>
+  <%= render "save" %>
+</code>
+</li>
+
+
+<li>
+  <h4>Delete confirmation</h4>
+</li>
+
+
+<li>
+13. Create a partial called _delete.html.erb
+<code>
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+      <h3>Delete Product</h3>
+    </div>
+    <div class="modal-body">
+    <ul class="errors"></ul>
+    Are you sure you wish to delete <b><%= @product.name %></b>?
+    </div>
+    <div class="modal-footer">
+      <%= link_to "Yes, Delete This Product", product_path(@product), method: :delete, remote: true, class: "btn btn-danger" %>
+      <%= link_to "No, Please Don't", "#", class: "btn btn-default", data: { dismiss: "modal" } %>
+    </div>
+    </div>
+  </div>
+</code>
+</li>
+
+<li> 
+14. Create the delete.js.erb javascript view 
+<code>
+$("#product-modal").html("<%= escape_javascript(render 'delete') %>")
+$("#product-modal").modal("show")
+</code>
+</li>
+<ul>
+<h5>DONE/h5>
