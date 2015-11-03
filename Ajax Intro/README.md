@@ -269,4 +269,4 @@ $("#product-modal").modal("show")
 </code>
 </li>
 <ul>
-<h5>DONE/h5>
+<h5>DONE</h5>
