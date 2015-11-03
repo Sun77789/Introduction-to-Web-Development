@@ -1,4 +1,4 @@
-For the guidlines with code, please open the file README.txt instead.
+<b> For the guidlines with code, please open the file README.txt instead. </b>
 <ul>
 <li>
 1. Create new model
