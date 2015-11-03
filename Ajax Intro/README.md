@@ -2,8 +2,8 @@
 
 <li>
 1. Create new model
->> rails g resource Product name price:decimal <br />
->> rake db:migrate <br />
+> rails g resource Product name price:decimal <br />
+> rake db:migrate <br />
 </li>
 
 <li>
@@ -20,16 +20,16 @@ end
 
 <li>
 3. Populate the database and then: 
->> rake db:seed
+> rake db:seed
 <code>
-  Product.delete_all
+  Product.delete_all <br />
 
-  Product.create!([
-    {id: 1, name: "Nintendo Wii U Premium", price: 250},
-    {id: 2, name: "XBox 360 250GB", price: 250},
-    {id: 3, name: "Playstation 3 500 GB", price: 239.95},
-    {id: 4, name: "Nintendo Wii", price: 99.95},
-    {id: 5, name: "Nintendo 3DS", price: 174.95}
+  Product.create!([ <br />
+    {id: 1, name: "Nintendo Wii U Premium", price: 250}, <br />
+    {id: 2, name: "XBox 360 250GB", price: 250}, <br />
+    {id: 3, name: "Playstation 3 500 GB", price: 239.95}, <br />
+    {id: 4, name: "Nintendo Wii", price: 99.95}, <br />
+    {id: 5, name: "Nintendo 3DS", price: 174.95} <br />
   ])
 </code>
 </li>
